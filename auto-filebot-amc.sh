@@ -7,7 +7,7 @@
 #   Filebot -- <https://www.filebot.net/>
 #   Automated Media Center (AMC) -- <http://www.filebot.net/forums/viewtopic.php?t=215>
 #
-# Version: 1.0.0
+# Version: 1.0.1
 #
 # (C) Copyright 2017, JB Freels <jbfreels@me.com>
 #
@@ -29,6 +29,7 @@ INPUT_DIR="$1"
 OUTPUT_DIR="/mnt/lg-nas/download"
 QUOTE_FIXER='replaceAll(/[\`\u00b4\u2018\u2019\u02bb]/, "'"'"'").replaceAll(/[\u201c\u201d]/, '"'"'""'"'"')'
 AMC_LOG="$OUTPUT_DIR/amc.log"
+KODI=osmc-master
 
 # FILEBOT PARAMS
 ACTION="move"
@@ -40,20 +41,25 @@ SETTLE_DURATION=10
 MAX_WAIT_TIME=01:00
 MIN_PERIOD=05:00
 DEBUG=0
-OPENSUBTITLES_USER=""
-OPENSUBTITLES_PASSWORD=""
-SUBTITLE_LANG=""
 # example: movies/Fight Club.mkv
 MOVIE_FORMAT="movies/{n.$QUOTE_FIXER} ({y})"
 # shows/Game of Thrones/Season 05/Game of Thrones - S05E08 - Hardhome.mp4
 # shows/Game of Thrones/Special/Game of Thrones - S00E11 - A Day in the Life.mp4
 SERIES_FORMAT="shows/{n}/{episode.special ? 'Special' : 'Season '+s.pad(2)}/{n} - {episode.special ? 'S00E'+special.pad(2) : s00e00} - {t.${QUOTE_FIXER}.replaceAll(/[!?.]+$/).replacePart(', Part $1')}{'.'+lang}"
 
-filebot -script fn:amc -no-xattr --output "$OUTPUT_DIR" --log-file $AMC_LOG --action $ACTION --conflict $CONFLICT \
-  -non-strict "$INPUT_DIR" --def ut_kind=multi deleteAfterExtract=y clean=$CLEAN \
-  $SUBTITLE_OPTION movieFormat="$MOVIE_FORMAT" seriesFormat="$SERIES_FORMAT"
+filebot -script fn:amc -no-xattr --output "$OUTPUT_DIR" \
+  --log-file $AMC_LOG \
+  --action $ACTION \
+  --conflict $CONFLICT \
+  -non-strict "$INPUT_DIR" \
+  --def ut_kind=multi \
+  deleteAfterExtract=y \
+  clean=$CLEAN \
+  kodi=$KODI \
+  movieFormat="$MOVIE_FORMAT" \
+  seriesFormat="$SERIES_FORMAT"
 
-# remove input directory
+# remove input directory -- will only remove if empty
 if [ $? -eq 0 ]; then
   if [ -d "$INPUT_DIR" ]; then
     rmdir -v "$INPUT_DIR"
