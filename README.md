@@ -20,3 +20,10 @@ Clone project `git clone https://github.com/jbfreels/auto-filebot-amc.git`
 $ cd auto-filebot-amc
 $ ./auto-filebot-amc <PATH_TO_MEDIA>
 ```
+
+# TODO
+* inotifywait support for the *auto* part
+* subtitle support
+* containerize
+* check permissions
+  * request elevation?
