@@ -7,7 +7,7 @@
 #   Filebot -- <https://www.filebot.net/>
 #   Automated Media Center (AMC) -- <http://www.filebot.net/forums/viewtopic.php?t=215>
 #
-# Version: 1.0.1
+# Version: 1.1.1
 #
 # (C) Copyright 2017, JB Freels <jbfreels@me.com>
 #
@@ -27,20 +27,14 @@
 
 INPUT_DIR="$1"
 OUTPUT_DIR="/mnt/lg-nas/download"
-QUOTE_FIXER='replaceAll(/[\`\u00b4\u2018\u2019\u02bb]/, "'"'"'").replaceAll(/[\u201c\u201d]/, '"'"'""'"'"')'
 AMC_LOG="$OUTPUT_DIR/amc.log"
 KODI=osmc-master
+QUOTE_FIXER='replaceAll(/[\`\u00b4\u2018\u2019\u02bb]/, "'"'"'").replaceAll(/[\u201c\u201d]/, '"'"'""'"'"')'
 
-# FILEBOT PARAMS
+# FILEBOT/AMC PARAMS
 ACTION="move"
 CONFLICT="auto"
 CLEAN="y"
-
-# FILEBOT OPTIONS
-SETTLE_DURATION=10
-MAX_WAIT_TIME=01:00
-MIN_PERIOD=05:00
-DEBUG=0
 # example: movies/Fight Club.mkv
 MOVIE_FORMAT="movies/{n.$QUOTE_FIXER} ({y})"
 # shows/Game of Thrones/Season 05/Game of Thrones - S05E08 - Hardhome.mp4
