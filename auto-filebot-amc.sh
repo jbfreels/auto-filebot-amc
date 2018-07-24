@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# auto-filebot-amc.sh -- helper script to automate media renaming with 
+# auto-filebot-amc.sh -- helper script to automate media renaming with
 # the help of Filebot and the amc script.
 #
-# More information: 
+# More information:
 #   Filebot -- <https://www.filebot.net/>
 #   Automated Media Center (AMC) -- <http://www.filebot.net/forums/viewtopic.php?t=215>
 #
@@ -20,13 +20,13 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with auto-filebot-amc.sh.  If not, see <http://gnu.org/licenses/>.
 #
 
 INPUT_DIR="$1"
-OUTPUT_DIR="/mnt/lg-nas/download"
+OUTPUT_DIR="/mnt/lg-nas/"
 AMC_LOG="$OUTPUT_DIR/amc.log"
 KODI=osmc-master
 QUOTE_FIXER='replaceAll(/[\`\u00b4\u2018\u2019\u02bb]/, "'"'"'").replaceAll(/[\u201c\u201d]/, '"'"'""'"'"')'
@@ -49,7 +49,6 @@ filebot -script fn:amc -no-xattr --output "$OUTPUT_DIR" \
   --def ut_kind=multi \
   deleteAfterExtract=y \
   clean=$CLEAN \
-  kodi=$KODI \
   movieFormat="$MOVIE_FORMAT" \
   seriesFormat="$SERIES_FORMAT"
 
