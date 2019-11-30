@@ -7,9 +7,9 @@
 #   Filebot -- <https://www.filebot.net/>
 #   Automated Media Center (AMC) -- <http://www.filebot.net/forums/viewtopic.php?t=215>
 #
-# Version: 1.1.1
+# Version: 1.2.1
 #
-# (C) Copyright 2017, JB Freels <jbfreels@me.com>
+# (C) Copyright 2017-2019, JB Freels <jbfreels@me.com>
 #
 # auto-filebot-amc.sh is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,9 +26,7 @@
 #
 
 INPUT_DIR="$1"
-OUTPUT_DIR="/mnt/lg-nas/"
-AMC_LOG="$OUTPUT_DIR/amc.log"
-KODI=osmc-master
+OUTPUT_DIR="/mnt/lilnas/"
 QUOTE_FIXER='replaceAll(/[\`\u00b4\u2018\u2019\u02bb]/, "'"'"'").replaceAll(/[\u201c\u201d]/, '"'"'""'"'"')'
 
 # FILEBOT/AMC PARAMS
@@ -38,11 +36,9 @@ CLEAN="y"
 # example: movies/Fight Club.mkv
 MOVIE_FORMAT="movies/{n.$QUOTE_FIXER} ({y})"
 # shows/Game of Thrones/Season 05/Game of Thrones - S05E08 - Hardhome.mp4
-# shows/Game of Thrones/Special/Game of Thrones - S00E11 - A Day in the Life.mp4
 SERIES_FORMAT="shows/{n}/{episode.special ? 'Special' : 'Season '+s.pad(2)}/{n} - {episode.special ? 'S00E'+special.pad(2) : s00e00} - {t.${QUOTE_FIXER}.replaceAll(/[!?.]+$/).replacePart(', Part $1')}{'.'+lang}"
 
 filebot -script fn:amc -no-xattr --output "$OUTPUT_DIR" \
-  --log-file $AMC_LOG \
   --action $ACTION \
   --conflict $CONFLICT \
   -non-strict "$INPUT_DIR" \
